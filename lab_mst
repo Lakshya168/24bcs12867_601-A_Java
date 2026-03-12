@@ -1,0 +1,77 @@
+import java.util.ArrayList;
+import java.util.List;
+
+
+class Student {
+    private int studentid;
+    private String studentname;
+
+    public Student(int studentid, String studentname) {
+        this.studentid = studentid;
+        this.studentname = studentname;
+    }
+
+    public int getStudentId() { 
+        return studentid;
+    }
+    public String getStudentName() { 
+        return studentname; 
+    }
+
+    public void displayStudentInfo() {
+        System.out.println("Student ID: " + studentid + ", Name: " + studentname);
+    }
+}
+
+class Course {
+    private int courseid;
+    private String coursename;
+    private int maxSeats;
+    private List<Student> enrolledstudents;
+
+    public Course(int courseid, String courseName, int maxSeats) {
+        this.courseid = courseid;
+        this.coursename = coursename;
+        this.maxSeats = maxSeats;
+        this.enrolledstudents = new ArrayList<>();
+    }
+
+    public boolean enrollStudent(Student student) {
+        if (enrolledstudents.size() < maxSeats) {
+            enrolledstudents.add(student);
+            return true;
+        } else {
+            System.out.println("Error: Course " + coursename + " is full!");
+            return false;
+        }
+    }
+
+    public void displayCourseDetails() {
+        System.out.println("\n--- Course Details ---");
+        System.out.println("ID: " + courseid);
+        System.out.println("Name: " + coursename);
+        System.out.println("Capacity: " + enrolledstudents.size() + "/" + maxSeats);
+        System.out.println("Enrolled Students:");
+        for (Student s : enrolledstudents) {
+            System.out.println(" - " + s.getStudentName());
+        }
+    }
+}
+
+
+public class lab_mst {
+    public static void main(String[] args) {
+        Course javaCourse = new Course(101, "Java Programming", 2);
+
+        Student s1 = new Student(1, "Lucky");
+        Student s2 = new Student(2, "Prince");
+        Student s3 = new Student(3, "Sunand");
+
+        System.out.println("Enrolling Lucky " + javaCourse.enrollStudent(s1));
+        System.out.println("Enrolling Prince: " + javaCourse.enrollStudent(s2));
+        
+        System.out.println("Enrolling Sunand: " + javaCourse.enrollStudent(s3));
+
+        javaCourse.displayCourseDetails();
+    }
+}
